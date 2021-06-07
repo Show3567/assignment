@@ -3,11 +3,20 @@
     "version": "1.0.0",
     "description": "Walmart Mexico Code Challenge",
     "scripts": {
-        "bootstrap": "lerna bootstrap"
+        "bootstrap": "lerna bootstrap",
+        "start-gqlserver": "nodemon packages/gql_server/src/index.js",
+        "start-microservice": "nodemon packages/microservice/src/index.js",
+        "start-nextserver": "cd packages/next_server && npm run start",
+        "start": "npm run start-gqlserver & npm run start-microservice & npm run start-nextserver"
     },
     "author": "walmex-team",
     "license": "ISC",
     "dependencies": {
-        "lerna": "^4.0.0"
+        "lerna": "^4.0.0",
+        "nodemon": "^2.0.7"
+    },
+    "devDependencies": {
+        "eslint": "^7.28.0",
+        "eslint-plugin-react": "^7.24.0"
     }
 }

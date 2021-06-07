@@ -4,12 +4,17 @@
     "description": "next_server",
     "scripts": {
         "dev": "next dev -p 5000",
-        "build": "next build",
-        "start": "next start -p 5000"
+        "start": "nodemon"
     },
     "dependencies": {
+        "@apollo/client": "^3.3.19",
+        "graphql": "^15.5.0",
         "next": "^10.0.0",
+        "nodemon": "^2.0.7",
         "react": "17.0.1",
-        "react-dom": "17.0.1"
+        "react-dom": "17.0.1",
+        "react-redux": "^7.2.4",
+        "redux": "^4.1.0",
+        "redux-thunk": "^2.3.0"
     }
 }

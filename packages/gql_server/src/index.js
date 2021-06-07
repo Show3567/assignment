@@ -45,23 +45,23 @@ const resolvers = {
             // log point after call
             console.log(`\nusersRecommendedItems > after GET /users/recommendations?username=${username}, response => `, listOfRecommendedItemIds, '\n');
 
-            const listOfRecommendedItemsToReturn = [];
+            const collectAllPromise = [];
             for(const itemId of listOfRecommendedItemIds) {
                 // log point before call
                 console.log(`\nusersRecommendedItems > before GET /items?ids=${itemId}\n`);
 
                 // fetch the requested data from the data source
-                const responseFromDataSource = await axios.get(
+                const responseFromDataSource = axios.get(
                     `http://localhost:3000/items?ids=${itemId}`
                 );
-
-                // log point after call
-                console.log(`\nusersRecommendedItems > after GET /items?ids=${itemId}, response => `, responseFromDataSource.data, '\n');
-
-                listOfRecommendedItemsToReturn.push(responseFromDataSource.data[0]);
+                
+                collectAllPromise.push(responseFromDataSource);
             }
-
-            // return the data
+            const listOfRecommendedItemsToReturn = (await axios.all(collectAllPromise)).map(ele => {
+                // log point after call
+                console.log(`\nusersRecommendedItems > after GET /items?ids=${itemId}, response => `, ele.data, '\n');
+                return ele.data[0];
+            });
             return listOfRecommendedItemsToReturn;
         },
         item: async (parent, args, context, info) => {
@@ -105,4 +105,3 @@ app.listen({ port }, () => {
         `Graphql endpoint is at http://localhost:${port}${apolloServer.graphqlPath}`
     );
 });
-
